@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: circuitdoctor
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: circuitdoctor-db
+          property: connectionString
+      - key: GEMMA_API_KEY
+        sync: false
+      - key: GEMMA_MODEL
+        value: gemma-4-26b-a4b-it
+      - key: VISION_MODEL
+        value: gemini-3.5-flash
+      - key: NEXT_PUBLIC_APP_NAME
+        value: CircuitDoctor
+
+databases:
+  - name: circuitdoctor-db
+    databaseName: circuitdoctor
+    user: circuitdoctor
+    plan: free
+    region: oregon

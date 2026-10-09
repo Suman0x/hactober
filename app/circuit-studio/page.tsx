@@ -13,7 +13,7 @@ export default function CircuitStudioPage() {
   useEffect(() => {
     let active = true;
 
-    async function initStudio() {
+    async function initCircuitStudio() {
       // Check if there is a pending circuit stashed from Project Builder
       try {
         const stashed = typeof window !== "undefined" ? sessionStorage.getItem("circuitdoctor_temp_circuit") : null;
@@ -45,7 +45,7 @@ export default function CircuitStudioPage() {
       }
     }
 
-    initStudio();
+    void initCircuitStudio();
 
     return () => {
       active = false;
