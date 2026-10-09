@@ -41,7 +41,7 @@ console.log('📡 Contacting Google GenAI service...\n');
 const ai = new GoogleGenAI({ apiKey });
 
 async function run() {
-  const modelsToTest = [defaultModel, defaultModel === 'gemma-4-26b-a4b-it' ? 'gemma-4-31b-it' : 'gemma-4-26b-a4b-it'];
+  const modelsToTest = [defaultModel];
 
   for (const model of modelsToTest) {
     console.log(`=== Testing Model: ${model} ===`);

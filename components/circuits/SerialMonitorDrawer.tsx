@@ -15,7 +15,6 @@ import {
   Maximize2,
   Minimize2,
   Check,
-  ChevronDown,
 } from "lucide-react";
 
 export interface SerialLogEntry {
@@ -78,9 +77,16 @@ export function SerialMonitorDrawer({
   // RX activity light blink on new log
   useEffect(() => {
     if (logs.length > 0) {
-      setRxBlink(true);
-      const timer = setTimeout(() => setRxBlink(false), 120);
-      return () => clearTimeout(timer);
+      const startTimer = setTimeout(() => {
+        setRxBlink(true);
+      }, 0);
+      const endTimer = setTimeout(() => {
+        setRxBlink(false);
+      }, 120);
+      return () => {
+        clearTimeout(startTimer);
+        clearTimeout(endTimer);
+      };
     }
   }, [logs.length]);
 

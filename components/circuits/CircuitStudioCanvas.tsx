@@ -257,11 +257,11 @@ export function CircuitStudioCanvas({
   const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"library" | "inspector" | "warnings">("library");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   const [showLegend, setShowLegend] = useState(false);
   const reactFlowInstance = useRef<any>(null);

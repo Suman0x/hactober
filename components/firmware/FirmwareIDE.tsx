@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
   FileCode,
   Play,
@@ -456,12 +456,15 @@ void loop() {
 
   // Sync initialCode prop updates if received from parent
   useEffect(() => {
-    if (initialCode && files[0].name === "main.ino" && !files[0].content.trim()) {
-      setFiles((prev) =>
-        prev.map((f) => (f.name === "main.ino" ? { ...f, content: initialCode, isModified: false } : f))
-      );
+    if (initialCode && files[0]?.name === "main.ino" && !files[0]?.content.trim()) {
+      const timer = setTimeout(() => {
+        setFiles((prev) =>
+          prev.map((f) => (f.name === "main.ino" ? { ...f, content: initialCode, isModified: false } : f))
+        );
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, [initialCode]);
+  }, [initialCode, files]);
 
   // Handle textarea text change
   const handleContentChange = (newVal: string) => {
@@ -608,7 +611,7 @@ void loop() {
     const formatted: string[] = [];
 
     lines.forEach((line) => {
-      let trimmed = line.trim();
+      const trimmed = line.trim();
       if (!trimmed) {
         formatted.push("");
         return;
@@ -910,12 +913,14 @@ void loop() {
 
   // Pre-tokenize lines for syntax backdrop
   const tokenizedLines = useMemo(() => {
+    const list = [];
     let inBlockComment = false;
-    return activeLines.map((line) => {
-      const result = tokenizeLine(line, inBlockComment);
+    for (let i = 0; i < activeLines.length; i++) {
+      const result = tokenizeLine(activeLines[i], inBlockComment);
       inBlockComment = result.endsInBlockComment;
-      return result.tokens;
-    });
+      list.push(result.tokens);
+    }
+    return list;
   }, [activeLines]);
 
   // Search logic

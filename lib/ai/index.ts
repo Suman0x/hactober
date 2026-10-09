@@ -1,14 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 
-const GEMMA_KEY = process.env.GEMMA_API_KEY || process.env.GEMINI_API_KEY;
-const TEXT_MODEL = process.env.GEMMA_MODEL || "gemma-4-26b-a4b-it";
-const VISION_MODEL = process.env.VISION_MODEL || "gemini-3.5-flash";
+const TEXT_MODEL = process.env.GEMMA_MODEL || "gemini-3.8-flash";
+const VISION_MODEL = process.env.VISION_MODEL || "gemini-3.8-flash";
 const CANDIDATE_VISION_MODELS = [
   VISION_MODEL,
-  "gemini-3.5-flash-lite",
-  "gemini-3.5-flash",
   "gemini-3.8-flash",
+  "gemini-3.5-flash",
+  "gemini-2.5-flash",
 ];
 
 let aiClient: GoogleGenAI | null = null;

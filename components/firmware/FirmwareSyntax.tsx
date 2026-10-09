@@ -1,7 +1,5 @@
 "use client";
 
-import React, { useMemo } from "react";
-
 export interface SyntaxToken {
   type:
     | "keyword"

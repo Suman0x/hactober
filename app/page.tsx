@@ -296,7 +296,7 @@ export default function HomePage() {
 
                 {/* Generated Code Snippet */}
                 <div className="rounded-lg bg-zinc-950 p-2.5 text-[10px] font-mono space-y-1 border border-zinc-800/80">
-                  <span className="text-zinc-500">// Starter Firmware Snippet (main.ino)</span>
+                  <span className="text-zinc-500">{"// Starter Firmware Snippet (main.ino)"}</span>
                   <div>
                     <span className="text-pink-400 font-semibold">#define</span> <span className="text-indigo-300">SOIL_PIN</span> <span className="text-amber-300 font-bold">34</span>
                   </div>

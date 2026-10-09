@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const DEFAULT_GEMMA_MODEL =
-  process.env.GEMMA_MODEL || "gemma-4-26b-a4b-it";
+  process.env.GEMMA_MODEL || "gemini-3.8-flash";
 
 export interface GemmaModelInfo {
   id: string;
@@ -14,19 +14,27 @@ export interface GemmaModelInfo {
 
 export const AVAILABLE_GEMMA_MODELS: GemmaModelInfo[] = [
   {
-    id: "gemma-4-26b-a4b-it",
-    name: "Gemma 4 26B A4B IT",
+    id: "gemini-3.8-flash",
+    name: "Gemini 3.8 Flash",
     badge: "Recommended • Ultra Fast",
-    description: "High-efficiency instruction-tuned open model with low latency and swift generation.",
-    contextWindow: "128k tokens",
+    description: "High-efficiency multimodal intelligence with swift generation and low latency.",
+    contextWindow: "1M tokens",
     isDefault: true,
   },
   {
-    id: "gemma-4-31b-it",
-    name: "Gemma 4 31B IT",
+    id: "gemini-1.5-flash",
+    name: "Gemini 1.5 Flash",
+    badge: "Lightweight & Resilient",
+    description: "Fast and versatile performance across text, multimodal inputs, and code.",
+    contextWindow: "1M tokens",
+    isDefault: false,
+  },
+  {
+    id: "gemini-1.5-pro",
+    name: "Gemini 1.5 Pro",
     badge: "Flagship Reasoning",
-    description: "Larger instruction-tuned open weights model with enhanced reasoning, coding, and dialogue capabilities.",
-    contextWindow: "128k tokens",
+    description: "Advanced reasoning, circuit analysis, and comprehensive firmware generation.",
+    contextWindow: "2M tokens",
     isDefault: false,
   },
 ];

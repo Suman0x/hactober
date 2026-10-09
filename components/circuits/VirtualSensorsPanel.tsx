@@ -6,7 +6,6 @@ import {
   ChevronDown,
   ChevronUp,
   RotateCcw,
-  Zap,
   Activity,
   Flame,
   Thermometer,
@@ -17,7 +16,6 @@ import {
   Bell,
   Sun,
   Compass,
-  CheckCircle2,
   Sparkles,
 } from "lucide-react";
 
@@ -75,9 +73,11 @@ export function VirtualSensorsPanel({
   useEffect(() => {
     if (motionCountdown === null) return;
     if (motionCountdown <= 0) {
-      setMotionCountdown(null);
-      onChange((prev) => ({ ...prev, isMotionTriggered: false }));
-      return;
+      const resetTimer = setTimeout(() => {
+        setMotionCountdown(null);
+        onChange((prev) => ({ ...prev, isMotionTriggered: false }));
+      }, 0);
+      return () => clearTimeout(resetTimer);
     }
     const timer = setTimeout(() => {
       setMotionCountdown((c) => (c ? c - 1 : 0));
