@@ -48,6 +48,19 @@ export function DiagnosticReportModal({
   analyzedAt,
 }: DiagnosticReportModalProps) {
   const printRef = useRef<HTMLDivElement | null>(null);
+  const [formattedDate, setFormattedDate] = React.useState<string>("");
+
+  React.useEffect(() => {
+    if (analyzedAt) {
+      try {
+        setFormattedDate(new Date(analyzedAt).toLocaleDateString());
+      } catch (_) {
+        setFormattedDate(analyzedAt);
+      }
+    } else {
+      setFormattedDate(new Date().toLocaleDateString());
+    }
+  }, [analyzedAt]);
 
   if (!isOpen) return null;
 
@@ -202,7 +215,7 @@ ${h.testNotes ? `- **Multimeter / Field Notes:** ${h.testNotes}` : ""}
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-zinc-500" /> {analyzedAt ? new Date(analyzedAt).toLocaleDateString() : new Date().toLocaleDateString()}
+                  <Calendar className="w-3.5 h-3.5 text-zinc-500" /> {formattedDate || "Inspection Date"}
                 </span>
               </div>
             </div>

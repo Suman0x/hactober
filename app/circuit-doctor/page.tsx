@@ -60,6 +60,7 @@ export default function CircuitDoctorPage() {
   const [testNotes, setTestNotes] = useState<Record<string, string>>({});
   const [savedSessionId, setSavedSessionId] = useState<string | null>(null);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [analyzedAt, setAnalyzedAt] = useState<string>("");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -73,6 +74,7 @@ export default function CircuitDoctorPage() {
     setSelectedImage(preset.svgDataUri);
     setImageFileName(`${preset.id}.svg`);
     setAnalysis(null);
+    setAnalyzedAt("");
     setAnalysisError(null);
     setTestOutcomes({});
     setTestNotes({});
@@ -168,6 +170,7 @@ export default function CircuitDoctorPage() {
       const data = await res.json();
       if (data.ok) {
         setAnalysis(data.analysis);
+        setAnalyzedAt(new Date().toISOString());
         setAnalysisError(null);
       } else {
         setAnalysisError(data.error || "Analysis request failed.");
@@ -328,7 +331,10 @@ export default function CircuitDoctorPage() {
             {analysis && (
               <>
                 <button
-                  onClick={() => setIsReportModalOpen(true)}
+                  onClick={() => {
+                    if (!analyzedAt) setAnalyzedAt(new Date().toISOString());
+                    setIsReportModalOpen(true);
+                  }}
                   className="flex items-center gap-1.5 rounded-lg border border-cyan-800/60 bg-cyan-950/40 px-3 py-1.5 text-xs font-semibold text-cyan-300 hover:bg-cyan-900/40 hover:text-cyan-200 transition-all shadow-xs"
                 >
                   <FileText className="h-3.5 w-3.5 text-cyan-400" />
@@ -969,7 +975,7 @@ export default function CircuitDoctorPage() {
         }))}
         hypotheses={formattedHypotheses}
         riskLevel={safetyMetrics.level}
-        analyzedAt={new Date().toISOString()}
+        analyzedAt={analyzedAt}
       />
     </div>
   );
