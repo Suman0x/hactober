@@ -6,6 +6,8 @@ CircuitDoctor is an AI-powered hardware development platform that helps electron
 
 ---
 
+**Wbsite live link : ** https://hactober.onrender.com
+
 ## 🌟 The Three Core Experiences
 
 ### 1. Circuit Doctor (`/circuit-doctor`)
